@@ -1,65 +1,75 @@
-const pokemonsUrl = './pokemons.json'; // Ruta al archivo JSON local
+const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=3&limit=50';
 
-let pokemons = []; // Array que contiene la informacion de los pokemones
+let pokemons = [];
 
-// Traemos los elementos del DOM para las funciones
-const searchInput = document.getElementById('searchInput'); // input de buscar
-const pokemonContainer = document.getElementById('pokemonContainer'); // contenedor de datos del pokemon
-const modal = document.getElementById('modal'); // subcontenedor con mas informacion del pokemon
-const modalName = document.getElementById('modalName'); // Nombre
-const modalType = document.getElementById('modalType'); // Tipo
-const modalWeight = document.getElementById('modalWeight'); // Tamaño
-const modalMoves = document.getElementById('modalMoves'); // Movimientos
-const closeBtn = document.getElementsByClassName('close')[0]; // Boton de cerrar modal
+const searchInput = document.getElementById('searchInput');
+const pokemonContainer = document.getElementById('pokemonContainer');
+const modal = document.getElementById('modal');
+const modalName = document.getElementById('modalName');
+const modalImg = document.getElementById('modalImg');
+const modalType = document.getElementById('modalType');
+const modalWeight = document.getElementById('modalWeight');
+const modalMoves = document.getElementById('modalMoves');
 
-// 
-fetch(pokemonsUrl)
-.then(response => { // traemos el JSON
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
+// Median el metodo Fetch Traemos a los pokemones indicados en la URL
+async function fetchPokemons() {
+    try {
+        const response = await fetch(pokemonsUrl);
+        const data = await response.json();
+        pokemons = data.results;
+        displayPokemons(pokemons);
+    } catch (error) {
+        console.error('Error:', error.message);
     }
-    return response.json(); 
-})
-.then(data => { // obtenemos los datos
-    pokemons = data; 
-    displayPokemons(pokemons);
-})
-.catch(error => { // Si llega haber un error
-    console.error('Error:', error.message); 
-});
+}
 
-// Funcion para mostrar los pokemones en tarjetas
+// Funcion para Mostrar los Pokemones en las Cartas
 function displayPokemons(pokemons) {
-    pokemonContainer.innerHTML = '';
-    pokemons.forEach(pokemon => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.innerHTML = `
-            <h3>${pokemon.name}</h3>
-            <p>Type: ${pokemon.type}</p>
-        `;
-    card.addEventListener('click', () => openModal(pokemon));
-    pokemonContainer.appendChild(card);
-});
+    pokemonContainer.innerHTML = ''; // Remplazamos todo el contenido de Id="pokemonContainer"
+    pokemons.forEach(async pokemon => { // buscamos todos los pokemones
+        try { // si es correcto entonces
+            const response = await fetch(pokemon.url); // guardamos la URL por cada pokemon
+            const data = await response.json(); // traemos el archivo JSON
+            const { name, types, weight, moves, sprites } = data; // creamos las variables de los datos usados de los pokemones
+            const card = createCard(name, types, sprites.front_default); // 
+            card.addEventListener('click', () => openModal(name, sprites.front_default, types, weight, moves));
+            pokemonContainer.appendChild(card);
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    });
+}
+
+// Create a card element for a pokemon
+function createCard(name, types, imageUrl) {
+    const card = document.createElement('div');
+    card.setAttribute('id', 'pokeTarjet');
+    card.classList.add('card', 'm-2');
+    card.setAttribute('data-bs-toggle', 'modal');
+    card.setAttribute('data-bs-target', '#Modal');
+    card.innerHTML =
+        `<h3>${name}</h3>
+        <img src="${imageUrl}" alt="${name}">
+        <p>Type: ${types.map(type => type.type.name).join(', ')}</p>`;
+    return card;
 }
 
 // Abrir el modal con información detallada del pokemon
-function openModal(pokemon) {
-    modal.style.display = 'block';
-    modalName.innerText = pokemon.name;
-    modalType.innerText = `Type: ${pokemon.type}`;
-    modalWeight.innerText = `Weight: ${pokemon.weight}`;
-    modalMoves.innerText = `Moves: ${pokemon.moves.join(', ')}`;
+function openModal(name, imageUrl, types, weight, moves) {
+    modalName.innerText = name;
+    modalImg.src = imageUrl;
+    modalType.innerText = `Type: ${types.map(type => type.type.name).join(', ')}`;
+    modalWeight.innerText = `Weight: ${weight}`;
+    modalMoves.innerText = `Moves: ${moves.map(move => move.move.name).join(', ')}`;
 }
 
-// Cerrar el modal
-closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
 
-// Filtrar pokemones por nombre al escribir en el campo de búsqueda
+// Filter pokemons by name as user types in the search input
 searchInput.addEventListener('input', () => {
     const searchTerm = searchInput.value.toLowerCase();
     const filteredPokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm));
     displayPokemons(filteredPokemons);
 });
+
+// Fetch pokemons on page load
+fetchPokemons();
