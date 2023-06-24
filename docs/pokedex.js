@@ -1,4 +1,4 @@
-const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=3&limit=50';
+const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=4&limit=24';
 
 let pokemons = [];
 
@@ -44,13 +44,17 @@ function displayPokemons(pokemons) {
 function createCard(name, types, imageUrl) {
     const card = document.createElement('div');
     card.setAttribute('id', 'pokeTarjet');
-    card.classList.add('card', 'm-2');
+    card.classList.add('card', 'm-2', 'text-center', 'justify-content-between');
     card.setAttribute('data-bs-toggle', 'modal');
     card.setAttribute('data-bs-target', '#Modal');
-    card.innerHTML =
-        `<h3>${name}</h3>
-        <img src="${imageUrl}" alt="${name}">
-        <p>Type: ${types.map(type => type.type.name).join(', ')}</p>`;
+    card.innerHTML =`
+        <p class="fs-6 m-0 p-0">${types.map(type => type.type.name).join(', ')}</p>
+        <img class="img-fluid" src="${imageUrl}" alt="${name}">
+        <h3 class="fs-5 m-0 p-0 rounded-bottom-2">${name}</h3>
+    `;
+    const h3Element = card.querySelector('h3');
+    const typeName = types[0].type.name; // Se asume que siempre hay al menos un tipo
+    changeBackgroundColorOnHover(typeName, card);
     return card;
 }
 
@@ -63,13 +67,28 @@ function openModal(name, imageUrl, types, weight, moves) {
     modalMoves.innerText = `Moves: ${moves.map(move => move.move.name).join(', ')}`;
 }
 
+function changeBackgroundColorOnHover(typeName, element) {
+    const colors = {
+        water: '#6495ED',
+        fire: '#fd8f67',
+        grass: '#32CD32',
+        electric: '#FFD700',
+        poison: '#8A2BE2',
+        bug: '#11b141',
+      // Agrega más tipos y colores según tus necesidades
+    };
+    const defaultBackgroundColor = element.style.backgroundColor;
+    const hoverBackgroundColor = colors[typeName.toLowerCase()];
 
-// Filter pokemons by name as user types in the search input
-searchInput.addEventListener('input', () => {
-    const searchTerm = searchInput.value.toLowerCase();
-    const filteredPokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm));
-    displayPokemons(filteredPokemons);
-});
+    element.addEventListener('mouseenter', () => {
+      element.style.backgroundColor = hoverBackgroundColor;
+    });
+  
+    element.addEventListener('mouseleave', () => {
+      element.style.backgroundColor = defaultBackgroundColor;
+    });
+  }
+  
 
 // Fetch pokemons on page load
 fetchPokemons();
