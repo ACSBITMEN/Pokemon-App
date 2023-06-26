@@ -1,4 +1,4 @@
-const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=4&limit=24';
+const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=105'; //existen 1281 pokemon a la fecha 06/2023
 
 let pokemons = [];
 
@@ -31,7 +31,8 @@ function displayPokemons(pokemons) {
             const response = await fetch(pokemon.url); // guardamos la URL por cada pokemon
             const data = await response.json(); // traemos el archivo JSON
             const { name, types, weight, moves, sprites } = data; // creamos las variables de los datos usados de los pokemones
-            const card = createCard(name, types, sprites.front_default); // 
+            const pokemonId = pokemon.url.split('/').pop(); // Obtenemos el ID del Pokémon
+            const card = createCard(name, types, sprites.front_default, pokemonId); //
             card.addEventListener('click', () => openModal(name, sprites.front_default, types, weight, moves));
             pokemonContainer.appendChild(card);
         } catch (error) {
@@ -40,23 +41,57 @@ function displayPokemons(pokemons) {
     });
 }
 
-// Create a card element for a pokemon
-function createCard(name, types, imageUrl) {
+// Crea una Tarjeta por cada Pokemon llamado
+function createCard(name, types, imageUrl, pokemonId) {
     const card = document.createElement('div');
     card.setAttribute('id', 'pokeTarjet');
-    card.classList.add('card', 'm-2', 'text-center', 'justify-content-between');
+    card.classList.add('card', 'm-1', 'text-center', 'justify-content-between', 'shadow-sm');
     card.setAttribute('data-bs-toggle', 'modal');
     card.setAttribute('data-bs-target', '#Modal');
     card.innerHTML =`
-        <p class="fs-6 m-0 p-0">${types.map(type => type.type.name).join(', ')}</p>
+        <p class="m-0 p-0">${types.map(type => type.type.name).join(', ')}</p>
+        <p class="m-0 p-0">${pokemonId}</p>
         <img class="img-fluid" src="${imageUrl}" alt="${name}">
-        <h3 class="fs-5 m-0 p-0 rounded-bottom-2">${name}</h3>
+        <h3 class="fs-6 rounded-bottom-2">${name}</h3>
     `;
-    const h3Element = card.querySelector('h3');
     const typeName = types[0].type.name; // Se asume que siempre hay al menos un tipo
-    changeBackgroundColorOnHover(typeName, card);
+    changeBackgroundColor(typeName, card);
     return card;
 }
+
+// Cambia el color del fondo segun el Pokemon
+function changeBackgroundColor(typeName, card) {
+    const colors = {
+        bug: '#5ccda7',
+        dark: '#607ec9',
+        dragon: '#f9db5c',
+        electric: '#faff00',
+        fairy: '#ffe5f0',
+        fighting: '#ffd675',
+        fire: '#ff9460',
+        ghost: '#9f90ea',
+        grass: '#9bfab0',
+        ground: '#e8c39e',
+        ice: '#9affff',
+        normal: '#deeafc',
+        poison: '#e0b0ff',
+        psychic: '#dbb6ee',
+        rock: '#c2d1d9',
+        water: '#96b3ff',
+        steel: '#fafdff',
+        flying: '#cddffb',
+      // Agrega más tipos y colores según tus necesidades
+    };
+    const backgroundColor = colors[typeName.toLowerCase()] || 'transparent';
+        card.style.backgroundColor = backgroundColor;
+}
+
+// Filtra los Pokemones en tiempo real segun el buscador
+searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredPokemons = pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm));
+    displayPokemons(filteredPokemons);
+});
 
 // Abrir el modal con información detallada del pokemon
 function openModal(name, imageUrl, types, weight, moves) {
@@ -67,28 +102,5 @@ function openModal(name, imageUrl, types, weight, moves) {
     modalMoves.innerText = `Moves: ${moves.map(move => move.move.name).join(', ')}`;
 }
 
-function changeBackgroundColorOnHover(typeName, element) {
-    const colors = {
-        water: '#6495ED',
-        fire: '#fd8f67',
-        grass: '#32CD32',
-        electric: '#FFD700',
-        poison: '#8A2BE2',
-        bug: '#11b141',
-      // Agrega más tipos y colores según tus necesidades
-    };
-    const defaultBackgroundColor = element.style.backgroundColor;
-    const hoverBackgroundColor = colors[typeName.toLowerCase()];
-
-    element.addEventListener('mouseenter', () => {
-      element.style.backgroundColor = hoverBackgroundColor;
-    });
-  
-    element.addEventListener('mouseleave', () => {
-      element.style.backgroundColor = defaultBackgroundColor;
-    });
-  }
-  
-
-// Fetch pokemons on page load
+// Trae el resultado
 fetchPokemons();
