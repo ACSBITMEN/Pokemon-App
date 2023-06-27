@@ -8,8 +8,8 @@ nav {
     background-color: #AB0000;
     width: 100%;
     position: fixed;
-    z-index: 998;
-    height: 110px;
+    z-index: 1000;
+    height: 95px;
 }
 
 h1 {
@@ -24,7 +24,7 @@ h1 {
 }
 
 main {
-    padding-top: 110px;
+    padding-top: 100px;
 }
 
 #pokemonContainer {
@@ -100,14 +100,6 @@ main {
 #Search_Pokemon {
   width: 300px;
   margin: auto;
-}
-
-.modal-dialog-centered {
-  align-items: center;
-}
-
-.modal-content {
-  width: 300px;
 }
 
 #modalImg {

@@ -40,25 +40,53 @@ function displayPokemons(pokemons) {
     });
 }
 
-// Crea una Tarjeta por cada Pokemon llamado
 function createCard(name, types, imageUrl, id) {
     const card = document.createElement('div');
     card.setAttribute('id', 'pokeTarjet');
     card.classList.add('card', 'm-1', 'text-center', 'justify-content-between');
+    const typeCard = document.createElement('div');
+    typeCard.setAttribute('id', 'typeCard');
+    typeCard.classList.add('m-0', 'p-0');
+    types.forEach(type => {
+    const iconElement = document.createElement('i');
+    iconElement.classList.add('fas');
+        // Agrega las clases correspondientes al icono según el tipo del Pokemon
+        if (type.type.name === 'grass') {
+            iconElement.classList.add('fa-leaf');
+        } else if (type.type.name === 'fire') {
+            iconElement.classList.add('fa-fire');
+        } else if (type.type.name === 'water') {
+            iconElement.classList.add('fa-water');
+        }
+        // Agrega más condiciones para otros tipos de Pokemon
+        typeCard.appendChild(iconElement);
+    });
+
+    const numberCard = document.createElement('div');
+    numberCard.setAttribute('id', 'numberCard');
+    numberCard.classList.add('m-0', 'p-0');
+    numberCard.textContent = `#${id}`;
+    const containerTopCard = document.createElement('div');
+    containerTopCard.setAttribute('id', 'containerTopCard');
+    containerTopCard.classList.add('d-flex', 'justify-content-around');
+    containerTopCard.appendChild(typeCard);
+    containerTopCard.appendChild(numberCard);
+
     card.setAttribute('data-bs-toggle', 'modal');
     card.setAttribute('data-bs-target', '#Modal');
-    card.innerHTML =`
-        <div id="containerTopCard" class="d-flex justify-content-around"> 
-            <div id="typeCard" class="m-0 p-0">${types.map(type => type.type.name).join(', ')}</div>
-            <div id="numberCard" class="m-0 p-0">#${id}</div>
-        </div>
+    card.appendChild(containerTopCard);
+
+    card.innerHTML += `
         <img class="img-fluid" src="${imageUrl}" alt="${name}">
         <h3 class="fs-6 rounded-bottom-2">${name}</h3>
     `;
+
     const typeName = types[0].type.name; // Se asume que siempre hay al menos un tipo
     changeBackgroundColor(typeName, card);
+
     return card;
 }
+
 
 // Cambia el color del fondo segun el Pokemon
 function changeBackgroundColor(typeName, card) {
