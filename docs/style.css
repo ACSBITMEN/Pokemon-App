@@ -1,18 +1,15 @@
 /* Estilos para el pokédex */
 body {
     font-family: Arial, sans-serif;
-    background-color: #0a0a0a;
+    background-color: #f5f5f5;
 }
 
 nav {
     background-color: #AB0000;
     width: 100%;
     position: fixed;
-    z-index: 999;
-}
-
-main {
-    padding-top: 107px;
+    z-index: 998;
+    height: 110px;
 }
 
 h1 {
@@ -21,10 +18,13 @@ h1 {
   text-align: center;
   font-weight: 800;
 }
-
 .search-container {
     text-align: center;
     margin-bottom: 20px;
+}
+
+main {
+    padding-top: 110px;
 }
 
 #pokemonContainer {
@@ -42,20 +42,59 @@ h1 {
   background-repeat: no-repeat;
   background-position: 1rem 2rem;
   border: none;
+  -webkit-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
+      box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
 }
 
+#pokeTarjet:hover {
+  transform: scale(1.22); /* Ajusta el valor según el nivel de zoom deseado */
+  transition: transform 0.2s ease; /* Agrega una transición suave para animar el efecto */
+  cursor: pointer;
+  z-index: 999;
+  border: 1px solid #bdbdbd;
+}
+
+#containerTopCard {
+  width: 100%;
+  padding: 0 2px 0 0;
+}
+
+#typeCard {
+  color: #666666d5;
+  position: relative;
+  font-size: 11px;
+  font-weight: 550;
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 #pokeTarjet h3 {
   -webkit-text-stroke: .7px #3564AE; /* Borde de 1 píxel de color negro */
   color: #FFCB05; /* Color del texto */
   font-weight: 800;
-  padding-bottom: 2rem;
+  padding: 0 3px 2px 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
+#pokeTarjet img {
+  position: absolute;
+  height: 98px;
+  top: 15px;
+  left: 1px;
+}
 
-#pokeTarjet p {
-  color: #5c5c5c;
-  font-size: 10px;
+#numberCard {
+  -webkit-text-stroke: .5px #3564AE; /* Borde de 1 píxel de color negro */
+  color: #FFCB05;
+  font-weight: 150;
+  font-size: 13px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #Search_Pokemon {
@@ -72,7 +111,7 @@ h1 {
 }
 
 #modalImg {
-  width: 100px; /* Ancho de la imagen */
+  width: 200px; /* Ancho de la imagen */
   height: auto; /* Altura de la imagen ajustada automáticamente */
   box-sizing: content-box;
 }

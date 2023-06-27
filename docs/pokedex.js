@@ -26,13 +26,12 @@ async function fetchPokemons() {
 // Funcion para Mostrar los Pokemones en las Cartas
 function displayPokemons(pokemons) {
     pokemonContainer.innerHTML = ''; // Remplazamos todo el contenido de Id="pokemonContainer"
-    pokemons.forEach(async pokemon => { // buscamos todos los pokemones
+    pokemons.forEach(async pokemon => { // Itaramos los pokemones
         try { // si es correcto entonces
-            const response = await fetch(pokemon.url); // guardamos la URL por cada pokemon
-            const data = await response.json(); // traemos el archivo JSON
-            const { name, types, weight, moves, sprites } = data; // creamos las variables de los datos usados de los pokemones
-            const pokemonId = pokemon.url.split('/').pop(); // Obtenemos el ID del Pokémon
-            const card = createCard(name, types, sprites.front_default, pokemonId); //
+            const response = await fetch(pokemon.url); // Realizamos la solicitud usando Fetch
+            const data = await response.json(); // traemos el archivo en JSON
+            const { name, types, weight, moves, sprites, id} = data; // creamos las variables de los datos usados de los pokemones
+            const card = createCard(name, types, sprites.front_default, id); //
             card.addEventListener('click', () => openModal(name, sprites.front_default, types, weight, moves));
             pokemonContainer.appendChild(card);
         } catch (error) {
@@ -42,15 +41,17 @@ function displayPokemons(pokemons) {
 }
 
 // Crea una Tarjeta por cada Pokemon llamado
-function createCard(name, types, imageUrl, pokemonId) {
+function createCard(name, types, imageUrl, id) {
     const card = document.createElement('div');
     card.setAttribute('id', 'pokeTarjet');
-    card.classList.add('card', 'm-1', 'text-center', 'justify-content-between', 'shadow-sm');
+    card.classList.add('card', 'm-1', 'text-center', 'justify-content-between');
     card.setAttribute('data-bs-toggle', 'modal');
     card.setAttribute('data-bs-target', '#Modal');
     card.innerHTML =`
-        <p class="m-0 p-0">${types.map(type => type.type.name).join(', ')}</p>
-        <p class="m-0 p-0">${pokemonId}</p>
+        <div id="containerTopCard" class="d-flex justify-content-around"> 
+            <div id="typeCard" class="m-0 p-0">${types.map(type => type.type.name).join(', ')}</div>
+            <div id="numberCard" class="m-0 p-0">#${id}</div>
+        </div>
         <img class="img-fluid" src="${imageUrl}" alt="${name}">
         <h3 class="fs-6 rounded-bottom-2">${name}</h3>
     `;
@@ -82,7 +83,7 @@ function changeBackgroundColor(typeName, card) {
         flying: '#cddffb',
       // Agrega más tipos y colores según tus necesidades
     };
-    const backgroundColor = colors[typeName.toLowerCase()] || 'transparent';
+    const backgroundColor = colors[typeName.toLowerCase()];
         card.style.backgroundColor = backgroundColor;
 }
 
