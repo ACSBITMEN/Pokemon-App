@@ -114,6 +114,15 @@ main {
   margin: auto;
 }
 
+.topCard {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.modal-dialog {
+  width: 320px;
+}
+
 #modalImg {
   width: 200px; /* Ancho de la imagen */
   height: auto; /* Altura de la imagen ajustada automáticamente */
