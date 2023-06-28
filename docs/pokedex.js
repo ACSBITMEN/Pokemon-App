@@ -1,4 +1,4 @@
-const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=105'; //existen 1281 pokemon a la fecha 06/2023
+const pokemonsUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=202'; //existen 1281 pokemon a la fecha 06/2023
 
 let pokemons = [];
 
@@ -57,8 +57,38 @@ function createCard(name, types, imageUrl, id) {
             iconElement.classList.add('fa-fire');
         } else if (type.type.name === 'water') {
             iconElement.classList.add('fa-water');
+        } else if (type.type.name === 'bug') {
+            iconElement.classList.add('fa-spider');
+        } else if (type.type.name === 'electric') {
+            iconElement.classList.add('fa-bolt');
+        } else if (type.type.name === 'flying') {
+            iconElement.classList.add('fa-dove');
+        } else if (type.type.name === 'dark') {
+            iconElement.classList.add('fa-moon');
+        } else if (type.type.name === 'dragon') {
+            iconElement.classList.add('fa-dragon');
+        } else if (type.type.name === 'ghost') {
+            iconElement.classList.add('fa-ghost');
+        } else if (type.type.name === 'fighting') {
+            iconElement.classList.add('fa-mitten');
+        } else if (type.type.name === 'ground') {
+            iconElement.classList.add('fa-mountain');
+        } else if (type.type.name === 'ice') {
+            iconElement.classList.add('fa-igloo');
+        } else if (type.type.name === 'normal') {
+            iconElement.classList.add('fa-paw');
+        } else if (type.type.name === 'poison') {
+            iconElement.classList.add('fa-skull-crossbones');
+        } else if (type.type.name === 'psychic') {
+            iconElement.classList.add('fa-brain');
+        } else if (type.type.name === 'rock') {
+            iconElement.classList.add('fa-cube');
+        } else if (type.type.name === 'steel') {
+            iconElement.classList.add('fa-wrench');
+        } else if (type.type.name === 'fairy') {
+            iconElement.classList.add('fa-vial');
         }
-        // Agrega más condiciones para otros tipos de Pokemon
+        // Agrega más iconos para otros tipos de Pokemon
         typeCard.appendChild(iconElement);
     });
 

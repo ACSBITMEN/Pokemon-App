@@ -5,7 +5,7 @@ body {
 }
 
 nav {
-    background-color: #AB0000;
+    background-color: #c20803;
     width: 100%;
     position: fixed;
     z-index: 1000;
@@ -41,7 +41,7 @@ main {
   background-size: 130%;
   background-repeat: no-repeat;
   background-position: 1rem 2rem;
-  border: none;
+  border: .5px solid rgb(131, 131, 131);
   -webkit-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
       box-shadow: 10px 10px 13px -9px rgba(0,0,0,0.75);
@@ -52,7 +52,7 @@ main {
   transition: transform 0.2s ease; /* Agrega una transición suave para animar el efecto */
   cursor: pointer;
   z-index: 999;
-  border: 1px solid #bdbdbd;
+  border: 1px solid rgb(119, 119, 119);
 }
 
 #containerTopCard {
@@ -71,6 +71,16 @@ main {
   text-overflow: ellipsis;
 }
 
+#typeCard i {
+  padding-top: 3px;
+  color: #00000052;
+  width: 100%;
+  margin: 3px 2px 0px 2px;
+}
+#typeCard > i:first-of-type {
+  margin-right: 5px;
+}
+
 #pokeTarjet h3 {
   -webkit-text-stroke: .7px #3564AE; /* Borde de 1 píxel de color negro */
   color: #FFCB05; /* Color del texto */
@@ -82,6 +92,15 @@ main {
   margin: 0;
 }
 
+#numberCard {
+  -webkit-text-stroke: .5px #3564AE; /* Borde de 1 píxel de color negro */
+  color: #FFCB05;
+  font-weight: 150;
+  font-size: 16px;
+  margin: 10px 0 0 0;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
 #pokeTarjet img {
   position: absolute;
   height: 98px;
@@ -89,13 +108,6 @@ main {
   left: 1px;
 }
 
-#numberCard {
-  -webkit-text-stroke: .5px #3564AE; /* Borde de 1 píxel de color negro */
-  color: #FFCB05;
-  font-weight: 150;
-  font-size: 13px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-}
 
 #Search_Pokemon {
   width: 300px;
