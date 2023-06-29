@@ -42,6 +42,7 @@ function displayPokemons(pokemons) {
     });
 }
 
+//Funcion para crear cartas
 function createCard(name, types, imageUrl, id) {
     const card = document.createElement('div');
     card.setAttribute('id', 'pokeTarjet');
@@ -110,7 +111,7 @@ function createCard(name, types, imageUrl, id) {
 
     card.innerHTML += `
         <img class="img-fluid" src="${imageUrl}" alt="${name}">
-        <h3 class="fs-6 rounded-bottom-2">${name}</h3>
+        <h3 class="fs-6 rounded-bottom-2">${name.charAt(0).toUpperCase() + name.slice(1)}</h3>
     `;
 
     const typeName = types[0].type.name; // Se asume que siempre hay al menos un tipo
@@ -156,13 +157,12 @@ searchInput.addEventListener('input', () => {
 
 // Abrir el modal con información detallada del pokemon
 function openModal(name, imageUrl, types, weight, moves, height, base_experience) {
-    modalName.innerText = name;
+    modalName.innerText = name.toUpperCase();
     modalImg.src = imageUrl;
     modalType.innerText = `Type: ${types.map(type => type.type.name).join(', ')}`;
     modalWeight.innerText = `Weight: ${weight}`;
     modalHeight.innerText = `Height: ${height}`;
-    modalMoves.innerText = `Moves: ${moves.map(move => move.move.name).join(', ')}`;
-    modalExperience.innerText = `Weight: ${base_experience}`;
+    modalExperience.innerText = `Experiencie: ${base_experience}`;
 }   
 
 // Trae el resultado
