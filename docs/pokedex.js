@@ -155,6 +155,28 @@ searchInput.addEventListener('input', () => {
     displayPokemons(filteredPokemons);
 });
 
+const typeModalBackgrounds = {
+    bug: 'url(img/BugModalBackground.jpg)',
+    dark: 'url(img/DarkModalBackground.jpg)',
+    dragon: 'url(img/DragonModalBackground.jpg)',
+    electric: 'url(img/ElectricModalBackground.jpg)',
+    fairy: 'url(img/FairyModalBackground.jpg)',
+    fighting: 'url(img/FightingModalBackground.jpg)',
+    fire: 'url(img/FireModalBackground.jpg)',
+    ghost: 'url(img/GhostModalBackground.jpg)',
+    grass: 'url(img/BugModalBackground.jpg)',
+    ground: 'url(img/GroundModalBackground.jpg)',
+    ice: 'url(img/IceModalBackground.jpg)',
+    normal: 'url(img/NormalModalBackground.jpg)',
+    poison: 'url(img/PoisonModalBackground.jpg)',
+    psychic: 'url(img/PsychicModalBackground.jpg)',
+    rock: 'url(img/RockModalBackground.jpg)',
+    water: 'url(img/WaterModalBackground.jpg)',
+    steel: 'url(img/SteelModalBackground.jpg)',
+    flying: 'url(img/FlyingModalBackground.jpg)',
+    // Agrega más tipos y rutas de imágenes
+};
+
 // Abrir el modal con información detallada del pokemon
 function openModal(name, imageUrl, types, weight, moves, height, base_experience) {
     modalName.innerText = name.toUpperCase();
@@ -163,7 +185,16 @@ function openModal(name, imageUrl, types, weight, moves, height, base_experience
     modalWeight.innerText = `Weight: ${weight}`;
     modalHeight.innerText = `Height: ${height}`;
     modalExperience.innerText = `Experiencie: ${base_experience}`;
-}   
+    
+    const modalTypeName = types[0].type.name.toLowerCase(); // Se asume que siempre hay al menos un tipo
+    changeModalBackground(modalTypeName);
+}
+
+function changeModalBackground(typeName) {
+    const modalBackgroundUrl = typeModalBackgrounds[typeName];
+    modalContainerImg.style.backgroundImage = modalBackgroundUrl;
+}
+
 
 // Trae el resultado
 fetchPokemons();

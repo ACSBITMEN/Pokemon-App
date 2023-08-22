@@ -13,7 +13,7 @@ nav {
     width: 100%;
     position: fixed;
     z-index: 1000;
-    height: 95px;
+    height: 100px;
     box-sizing: border-box;
 }
 
@@ -29,7 +29,7 @@ h1 {
 }
 
 main {
-    padding-top: 100px;
+    padding-top: 105px;
 }
 
 #pokemonContainer {
@@ -133,9 +133,10 @@ main {
 #modalContainerImg {
   display: flex;
   justify-content: center;
-  background-color: #3564AE;
   background-image: url(img/ModalBackgroundImg.jpg);
   background-size: cover;
+  margin: 0 .5rem 0 .5rem;
+  border: 2px solid rgba(0, 0, 0, 0.589);
 }
 
 #modalImg {
@@ -146,13 +147,21 @@ main {
 
 .card-body h4 {
   text-align: center;
-  background-color: #ae3935;
-  -webkit-text-stroke: .7px #3564AE; /* Borde de 1 píxel de color negro */
-  color: #FFCB05; /* Color del texto */
+  background-color: #00000042;
+  -webkit-text-stroke: 1px #000000; /* Borde de 1 píxel de color negro */
+  color: #ffb005; /* Color del texto */
   font-size: 2rem;
 }
 
 .card {
   --bs-card-border-color: #C0C0C0;
+  background-image: url(img/BackgroundCard.jpg);
+  border-color: #b95e20;
 }
 
+.card li {
+  background-color: #ffffff3f;
+  margin: 0;
+  border-color: rgba(0, 0, 0, 0.253);
+  font-weight: bold;
+}
