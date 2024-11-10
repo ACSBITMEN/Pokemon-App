@@ -14,18 +14,21 @@
 </head>
 <body>
     <nav class="nav d-block border-5 border-bottom border-black">
-        <h1 class="pt-1">Pokémon Colections</h1>
-        <div id="Search_Pokemon" class="input-group input-group-sm mb-3">
-            <label class="input-group-text" for="searchInput">Search</label>
-            <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+        <h1 >Pokémon Collections</h1>
+        <div class="optionsNavbar">
+            <button id="modeToggle" class="btn btn-light">Modo Dark</button>
+            <div id="Search_Pokemon" class="input-group input-group-sm mb-3">
+                <label class="input-group-text" for="searchInput">Search</label>
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar Pokemon" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
         </div>
     </nav>
     <main>
         <section class="sectionMain">
+            <!-- Paginacion -->
+            <div id="paginationContainer" class="d-flex justify-content-center align-items-center"></div>
             <!-- Pokemones -->
             <div id="pokemonContainer" class="container"></div>
-            <!-- Paginacion -->
-            <div id="paginationContainer" class="d-flex justify-content-center align-items-center my-3"></div>
         </section>
 
         <!-- Modal -->

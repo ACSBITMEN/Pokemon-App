@@ -1,4 +1,4 @@
-const pokemonsPerPage = 30;
+const pokemonsPerPage = 40;
 let currentPage = 1;
 let totalPokemons = 0;
 let totalPages = 0;
@@ -16,6 +16,20 @@ const modalHeight = document.getElementById('modalHeight');
 const modalMoves = document.getElementById('modalMoves');
 const modalExperience = document.getElementById('modalExperience');
 const modalContainerImg = document.getElementById('modalContainerImg'); // Asegúrate de que este elemento exista en tu HTML
+
+const modeToggle = document.getElementById('modeToggle');
+const root = document.documentElement;
+
+modeToggle.addEventListener('click', () => {
+    if (root.getAttribute('data-theme') === 'dark') {
+        root.setAttribute('data-theme', 'light');
+        modeToggle.textContent = 'Modo Dark';
+    } else {
+        root.setAttribute('data-theme', 'dark');
+        modeToggle.textContent = 'Modo Light';
+    }
+});
+
 
 // Contenedor para los controles de paginación
 const paginationContainer = document.getElementById('paginationContainer'); // Añade este elemento en tu HTML
@@ -71,7 +85,7 @@ const typeModalBackgrounds = {
     fighting: 'url(img/FightingModalBackground.jpg)',
     fire: 'url(img/FireModalBackground.jpg)',
     ghost: 'url(img/GhostModalBackground.jpg)',
-    grass: 'url(img/GrassModalBackground.jpg)',
+    grass: 'url(img/BugModalBackground.jpg)',
     ground: 'url(img/GroundModalBackground.jpg)',
     ice: 'url(img/IceModalBackground.jpg)',
     normal: 'url(img/NormalModalBackground.jpg)',
@@ -179,7 +193,6 @@ function createCard(name, types, imageUrl, id) {
     imgElement.alt = name;
 
     const nameElement = document.createElement('h3');
-    nameElement.classList.add('fs-6', 'rounded-bottom-2');
     nameElement.textContent = name.charAt(0).toUpperCase() + name.slice(1);
 
     card.appendChild(imgElement);
@@ -209,7 +222,7 @@ function setupPagination(totalPages) {
 
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Anterior';
-    prevButton.classList.add('btn', 'btn-secondary', 'm-1');
+    prevButton.classList.add('btn');
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -225,7 +238,7 @@ function setupPagination(totalPages) {
 
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Siguiente';
-    nextButton.classList.add('btn', 'btn-secondary', 'm-1');
+    nextButton.classList.add('btn');
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener('click', () => {
         if (currentPage < totalPages) {

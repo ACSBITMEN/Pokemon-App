@@ -1,7 +1,30 @@
+:root {
+  /* Variables para el modo claro */
+  --background-color: #ebebeb; /*3564AE*/
+  --text-color: #000;
+  --text-color-pokemon: #FFCB05;
+  --nav-background-color: #c20803;
+  --pokemon-card-background: #fff;
+  --button-background: #C0C0C0;
+  --modal-background: #fafdff;
+}
+
+[data-theme="dark"] {
+  /* Variables para el modo oscuro */
+  --background-color: #333;
+  --text-color-pokemon: #FFCB05;
+  --text-color: #d4d4d4;
+  --nav-background-color: #1e1e1e;
+  --pokemon-card-background: #444;
+  --button-background: #666;
+  --modal-background: #2c2c2c;
+}
+
 /* Estilos para el pokédex */
 body {
   font-family: Arial, sans-serif;
-  background-color: #3564AE;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .fs-4 {
@@ -9,23 +32,29 @@ body {
 }
 
 nav {
-    background-color: #c20803;
-    width: 100%;
-    position: fixed;
-    z-index: 1000;
-    height: 100px;
-    box-sizing: border-box;
+  background-color: var(--nav-background-color);
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  height: 100px;
+  box-sizing: border-box;
 }
 
 h1 {
-  color: #FFCB05; /* Color del texto */
+  color: var(--text-color-pokemon);
   text-align: center;
   font-weight: 800;
   text-shadow: -2px -2px 0 #003A70, 2px -2px 0 #003A70, -2px 2px 0 #003A70, 2px 2px 0 #003A70;
+  margin: 0 0 0 0;
 }
+
+.optionsNavbar {
+  display: flex;
+}
+
 .search-container {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 main {
@@ -39,21 +68,39 @@ main {
   justify-content: flex-start;
 }
 
+.sectionMain #paginationContainer {
+  margin: .5rem 0 0 0;
+}
+
+#paginationContainer .btn {
+  background-color: #C0C0C0;
+}
+
+#paginationContainer .btn:disabled {
+  background-color: #C0C0C0;
+  color: #6d6d6d;
+}
+
+#paginationContainer .btn:hover {
+  background-color: #acacac;
+  color: #000;
+}
+
+
 .sectionMain #pokemonContainer {
-  height: 80%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   grid-auto-rows: minmax(150px, auto); /* Ajusta el tamaño de las filas */
-  gap: .5rem; /* Espacio entre elementos */
-  grid-row-gap: 0px;
-  padding: 1rem 20px 0; /* Padding para desktop */
+  gap: .3rem .5rem;
+  padding: 1rem 20px 1rem; /* Padding para desktop */
   box-sizing: border-box;
 }
 
 
 #pokeTarjet {
-  width: 120px;
-  height: 170px;
+  width: 110px;
+  height: 150px;
+  background-color: var(--pokemon-card-background);
   background-image: url(img/PokeballOpacitad1.png);
   background-size: 130%;
   background-repeat: no-repeat;
@@ -65,8 +112,8 @@ main {
 }
 
 #pokeTarjet:hover {
-  transform: scale(1.15); /* Ajusta el valor según el nivel de zoom deseado */
-  transition: transform 0.2s ease; /* Agrega una transición suave para animar el efecto */
+  transform: scale(1.15); 
+  transition: transform 0.2s ease;
   cursor: pointer;
   z-index: 999;
   border: 1px solid rgb(119, 119, 119);
@@ -74,13 +121,15 @@ main {
 
 #containerTopCard {
   width: 100%;
-  padding: 0 2px 0 0;
+  padding: 2px 2px 0 0;
 }
 
 #typeCard {
   color: #666666d5;
   position: relative;
-  font-size: 11px;
+  top: 5px;
+  left: 5px;
+  font-size: 15px;
   font-weight: 550;
   display: flex;
   white-space: nowrap;
@@ -89,7 +138,6 @@ main {
 }
 
 #typeCard i {
-  padding-top: 3px;
   color: #00000052;
   width: 100%;
   margin: 3px 2px 0px 2px;
@@ -99,28 +147,28 @@ main {
 }
 
 #pokeTarjet h3 {
-  -webkit-text-stroke: .7px #3564AE; /* Borde de 1 píxel de color negro */
-  color: #FFCB05; /* Color del texto */
+  color: var(--text-color-pokemon);
+  text-shadow: -1px -1px 0 #00000088, 1px -1px 0 #00000088, -1px 1px 0 #00000088, 1px 1px 0 #00000088;
   font-weight: 800;
-  padding: 0 3px 2px 3px;
+  font-size: clamp( .5rem, 2em, 1.1em);
+  padding: 0 6px 0 7px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 0;
 }
 
 #numberCard {
   color: #0000003a;
   font-weight: 150;
-  font-size: 1.2em;
+  font-size: 1.3em;
   margin: 10px 0 0 0;
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 #pokeTarjet img {
   position: absolute;
-  height: 120px;
-  top: 25px;
+  height: 105px;
+  top: 23px;
   left: 6px;
 }
 
@@ -166,6 +214,7 @@ main {
 
 .card {
   --bs-card-border-color: #C0C0C0;
+  background-color: var(--modal-background);
   background-image: url(img/BackgroundCard.jpg);
   border-color: #b95e20;
 }
