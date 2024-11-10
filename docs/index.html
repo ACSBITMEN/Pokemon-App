@@ -14,22 +14,27 @@
 </head>
 <body>
     <nav class="nav d-block border-5 border-bottom border-black">
-        <h1 class="pt-1">Pokédex</h1>
+        <h1 class="pt-1">Pokémon Colections</h1>
         <div id="Search_Pokemon" class="input-group input-group-sm mb-3">
-            <label class="input-group-text" for="searchInput">Pokémon</label>
+            <label class="input-group-text" for="searchInput">Search</label>
             <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
         </div>
     </nav>
     <main>
-        <div id="pokemonContainer" class="container">
-            
-        </div>
+        <section class="sectionMain">
+            <!-- Pokemones -->
+            <div id="pokemonContainer" class="container"></div>
+            <!-- Paginacion -->
+            <div id="paginationContainer" class="d-flex justify-content-center align-items-center my-3"></div>
+        </section>
+
+        <!-- Modal -->
         <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="card border-5">
                         <div class="topCard">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-closevol" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div id="modalContainerImg">
                             <img id="modalImg" src="" class="card-img-top " alt="...">
@@ -41,6 +46,7 @@
                                 <li id="modalWeight" class="list-group-item">Weight:</li>
                                 <li id="modalHeight" class="list-group-item">Height:</li>
                                 <li id="modalExperience" class="list-group-item">Experiencia</li>
+                                <li id="modalMoves" class="list-group-item">Moves:</li>
                             </ul>
                             <p id="" class="card-text"></p>
                         </div>
