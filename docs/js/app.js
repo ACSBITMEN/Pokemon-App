@@ -1,6 +1,6 @@
 // app.js
 
-import { fetchPokemonList, fetchPokemonDetails } from './api.js';
+import { fetchPokemonList, fetchPokemonDetails, preloadImages } from './api.js';
 import {
     displayPokemons,
     setupPagination,
@@ -50,20 +50,37 @@ async function fetchAndDisplayPokemonList() {
 
 // Function to display the Pokémon on the current page
 function displayPage(page) {
-    currentPage = page;
-    const startIndex = (page - 1) * pokemonsPerPage;
-    const endIndex = startIndex + pokemonsPerPage;
-    const pokemonsToDisplay = isFiltered
-        ? filteredPokemons.slice(startIndex, endIndex)
-        : pokemons.slice(startIndex, endIndex);
+  currentPage = page;
+  const startIndex = (page - 1) * pokemonsPerPage;
+  const endIndex = startIndex + pokemonsPerPage;
+  const pokemonsToDisplay = isFiltered
+      ? filteredPokemons.slice(startIndex, endIndex)
+      : pokemons.slice(startIndex, endIndex);
 
-    fetchPokemonDetails(pokemonsToDisplay)
-        .then(pokemonDetails => {
-            displayPokemons(pokemonDetails, pokemonContainer, openModal);
-        })
-        .catch(error => {
-            console.error('Error:', error.message);
-        });
+  fetchPokemonDetails(pokemonsToDisplay)
+      .then(pokemonDetails => {
+          displayPokemons(pokemonDetails, pokemonContainer, openModal);
+
+          // Pre-cargar imágenes de la siguiente página
+          const nextStartIndex = endIndex;
+          const nextEndIndex = nextStartIndex + pokemonsPerPage;
+          const pokemonsToPreload = isFiltered
+              ? filteredPokemons.slice(nextStartIndex, nextEndIndex)
+              : pokemons.slice(nextStartIndex, nextEndIndex);
+
+          if (pokemonsToPreload.length > 0) {
+              fetchPokemonDetails(pokemonsToPreload)
+                  .then(preloadPokemonDetails => {
+                      preloadImages(preloadPokemonDetails);
+                  })
+                  .catch(error => {
+                      console.error('Error pre-cargando imágenes:', error.message);
+                  });
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error.message);
+      });
 }
 
 // Function to set up pagination controls

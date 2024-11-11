@@ -101,8 +101,12 @@ export function createCard(name, types, imageUrl, id) {
 
   const imgElement = document.createElement('img');
   imgElement.classList.add('img-fluid');
-  imgElement.src = imageUrl;
+  imgElement.dataset.src = imageUrl; // Usamos data-src en lugar de src
+
   imgElement.alt = name;
+
+  // Aplicar lazy loading
+  lazyLoadImage(imgElement);
 
   const nameElement = document.createElement('h3');
   nameElement.textContent = name.charAt(0).toUpperCase() + name.slice(1);
@@ -116,6 +120,20 @@ export function createCard(name, types, imageUrl, id) {
   }
 
   return card;
+}
+
+// Función para lazy loading de imágenes
+function lazyLoadImage(img) {
+  const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting) {
+              const imgElement = entry.target;
+              imgElement.src = imgElement.dataset.src;
+              observer.unobserve(imgElement);
+          }
+      });
+  });
+  observer.observe(img);
 }
 
 // Function to change background color based on Pokémon type
