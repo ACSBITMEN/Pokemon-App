@@ -91,8 +91,9 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   grid-auto-rows: minmax(150px, auto); /* Ajusta el tamaño de las filas */
-  gap: .3rem .5rem;
-  padding: 1rem 20px 1rem; /* Padding para desktop */
+  gap: .9rem 0;
+  justify-items: center;
+  padding: 1rem 1rem 1rem; /* Padding para desktop */
   box-sizing: border-box;
 }
 
