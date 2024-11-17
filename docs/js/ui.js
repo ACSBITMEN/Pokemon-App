@@ -25,22 +25,22 @@ export const typeIconClasses = {
 
 // Color por tipo de Pokemon
 export const typeColors = {
-  bug: '#5ccda7',
-  dark: '#607ec9',
+  bug: '#88D66C',
+  dark: '#87A2FF',
   dragon: '#f9db5c',
   electric: '#faff00',
-  fairy: '#ffe5f0',
-  fighting: '#ffd675',
+  fairy: '#FFCCEA',
+  fighting: '#FFDA76',
   fire: '#ff9460',
   ghost: '#9f90ea',
-  grass: '#9bfab0',
-  ground: '#e8c39e',
+  grass: '#50B498',
+  ground: '#BC9F8B',
   ice: '#9affff',
   normal: '#deeafc',
   poison: '#e0b0ff',
-  psychic: '#dbb6ee',
-  rock: '#c2d1d9',
-  water: '#96b3ff',
+  psychic: '#FF77B7',
+  rock: '#c2d1d9', /*c2d1d9*/
+  water: '#4CC9FE',
   steel: '#fafdff',
   flying: '#cddffb',
 };
@@ -50,9 +50,9 @@ export const typeColors = {
 export const typeModalBackgrounds = {
   bug: 'url(img/BugModalBackground.jpg)',
   dark: 'url(img/DarkModalBackground.jpg)',
-  dragon: 'url(img/DragonModalBackground.jpg)',
+  dragon: 'url(img/RockModalBackground.jpg)',
   electric: 'url(img/ElectricModalBackground.jpg)',
-  fairy: 'url(img/FairyModalBackground.jpg)',
+  fairy: 'url(img/PsychicModalBackground.jpg)',
   fighting: 'url(img/FightingModalBackground.jpg)',
   fire: 'url(img/FireModalBackground.jpg)',
   ghost: 'url(img/GhostModalBackground.jpg)',
@@ -64,7 +64,7 @@ export const typeModalBackgrounds = {
   psychic: 'url(img/PsychicModalBackground.jpg)',
   rock: 'url(img/RockModalBackground.jpg)',
   water: 'url(img/WaterModalBackground.jpg)',
-  steel: 'url(img/SteelModalBackground.jpg)',
+  steel: 'url(img/NormalModalBackground.jpg)',
   flying: 'url(img/FlyingModalBackground.jpg)',
 };
 
