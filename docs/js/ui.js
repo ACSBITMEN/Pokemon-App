@@ -1,6 +1,6 @@
 // ui.js
 
-// Type icon classes and colors
+// Iconos por tipo de Pokemon
 export const typeIconClasses = {
   bug: 'fa-spider',
   dark: 'fa-moon',
@@ -22,6 +22,7 @@ export const typeIconClasses = {
   flying: 'fa-dove',
 };
 
+// Color por tipo de Pokemon
 export const typeColors = {
   bug: '#5ccda7',
   dark: '#607ec9',
@@ -43,6 +44,7 @@ export const typeColors = {
   flying: '#cddffb',
 };
 
+// Fondos por tipo de Pokemon
 export const typeModalBackgrounds = {
   bug: 'url(img/BugModalBackground.jpg)',
   dark: 'url(img/DarkModalBackground.jpg)',
@@ -64,15 +66,14 @@ export const typeModalBackgrounds = {
   flying: 'url(img/FlyingModalBackground.jpg)',
 };
 
-// Function to create a Pokémon card
+// Funcion para crear una carta Pokémon
 export function createCard(name, types, imageUrl, id) {
   const card = document.createElement('div');
   card.id = 'pokeTarjet';
-  card.classList.add('card', 'text-center', 'justify-content-between');
+  card.classList.add('card');
 
   const typeCard = document.createElement('div');
   typeCard.id = 'typeCard';
-  typeCard.classList.add('m-0', 'p-0');
 
   types.forEach(type => {
       const iconElement = document.createElement('i');
@@ -86,12 +87,10 @@ export function createCard(name, types, imageUrl, id) {
 
   const numberCard = document.createElement('div');
   numberCard.id = 'numberCard';
-  numberCard.classList.add('m-0', 'p-0');
   numberCard.textContent = `#${id}`;
 
   const containerTopCard = document.createElement('div');
   containerTopCard.id = 'containerTopCard';
-  containerTopCard.classList.add('d-flex', 'justify-content-around');
   containerTopCard.appendChild(typeCard);
   containerTopCard.appendChild(numberCard);
 
@@ -101,7 +100,7 @@ export function createCard(name, types, imageUrl, id) {
 
   const imgElement = document.createElement('img');
   imgElement.classList.add('img-fluid');
-  imgElement.dataset.src = imageUrl; // Usamos data-src en lugar de src
+  imgElement.dataset.src = imageUrl;
 
   imgElement.alt = name;
 
@@ -136,7 +135,17 @@ function lazyLoadImage(img) {
   observer.observe(img);
 }
 
-// Function to change background color based on Pokémon type
+// // Función para cambiar Fondos según tipo de Pokemon
+export function changeModalBackground(typeName, modalContainerImg) {
+  const modalBackgroundUrl = typeModalBackgrounds[typeName];
+  if (modalBackgroundUrl) {
+      modalContainerImg.style.backgroundImage = modalBackgroundUrl;
+  } else {
+      modalContainerImg.style.backgroundImage = ''; // Default background
+  }
+}
+
+// // Función para cambiar Fondos de Modal según tipo de Pokemon
 export function changeBackgroundColor(typeName, card) {
   const backgroundColor = typeColors[typeName];
   if (backgroundColor) {
@@ -159,7 +168,7 @@ export function displayPokemons(pokemons, container, openModalCallback) {
   });
 }
 
-// Function to set up pagination controls
+// Función para configurar controles de paginación
 export function setupPagination(container, currentPage, totalPages, onPageChange) {
   container.innerHTML = '';
 
@@ -190,7 +199,7 @@ export function setupPagination(container, currentPage, totalPages, onPageChange
   container.appendChild(nextButton);
 }
 
-// Function to open the modal with Pokémon details
+// Función para abrir el modal con detalles del Pokémon
 export function openModal(name, imageUrl, types, weight, moves, height, base_experience) {
   const modalName = document.getElementById('modalName');
   const modalImg = document.getElementById('modalImg');
@@ -223,12 +232,4 @@ export function openModal(name, imageUrl, types, weight, moves, height, base_exp
   }
 }
 
-// Function to change modal background based on Pokémon type
-export function changeModalBackground(typeName, modalContainerImg) {
-  const modalBackgroundUrl = typeModalBackgrounds[typeName];
-  if (modalBackgroundUrl) {
-      modalContainerImg.style.backgroundImage = modalBackgroundUrl;
-  } else {
-      modalContainerImg.style.backgroundImage = ''; // Default background
-  }
-}
+
