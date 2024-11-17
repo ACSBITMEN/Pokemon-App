@@ -42,27 +42,28 @@
         <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="card border-5">
+                    <div id="modalCard" class="card border-5">
                         <div class="topCard">
                             <button type="button" class="btn-closevol" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div id="modalContainerImg">
                             <img id="modalImg" src="" class="card-img-top " alt="...">
+                            <div id="numberPokemonModal">#100</div>
                         </div>
                         <div class="card-body">
                             <h4 id="modalName" class="card-title">Name Pokemon</h4>
-                            <ul class="list-group list-group-flush">
-                                <li id="modalType" class="list-group-item">Type:</li>
+                            <ul class="datesPokemon">
                                 <li id="modalWeight" class="list-group-item">Weight:</li>
                                 <li id="modalHeight" class="list-group-item">Height:</li>
                                 <li id="modalExperience" class="list-group-item">Experiencia</li>
+                            </ul>
+                            <ul class="list-group list-group-flush">
+                                <li id="modalType" class="list-group-item">Type:</li>
                                 <li id="modalMoves" class="list-group-item">Moves:</li>
                             </ul>
                             <p id="" class="card-text"></p>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
                         </div>
                     </div>
                 </div>

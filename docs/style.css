@@ -261,6 +261,20 @@ main {
   background-size: cover;
   margin: 0 .5rem 0 .5rem;
   border: 2px solid rgba(0, 0, 0, 0.589);
+  position: relative;
+}
+
+#numberPokemonModal {
+  background-color: #ffffff6b;
+  color: #fff;
+  padding: .1rem .7rem 0;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  text-shadow: -1px -1px 0 #00000088, 1px -1px 0 #00000088, -1px 1px 0 #00000088, 1px 1px 0 #00000088;
+  font-size: 1.5em;
+  font-weight: 700;
+  border-radius: 30px;
 }
 
 #modalImg {
@@ -269,24 +283,39 @@ main {
   box-sizing: content-box;
 }
 
+.card-body {
+  padding: 0 .5rem .3rem .5rem;
+}
+
 .card-body h4 {
   text-align: center;
   background-color: #00000042;
   -webkit-text-stroke: 1px #000000; /* Borde de 1 píxel de color negro */
   color: #ffb005; /* Color del texto */
   font-size: 2rem;
+  margin: 0;
 }
 
 .card {
   --bs-card-border-color: #C0C0C0;
   background-color: var(--modal-background);
-  background-image: url(img/BackgroundCard.jpg);
   border-color: #0000006e;
 }
 
-.card li {
-  background-color: #ffffff3f;
+.card .list-group li {
+  background-color: #375fcc77;
   margin: 0;
   border-color: rgba(0, 0, 0, 0.253);
   font-weight: bold;
+}
+
+.card-body .datesPokemon {
+  background-color: rgb(156, 156, 156);
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: space-around;
+  text-align: center;
+  flex-wrap: nowrap;
+  font-weight: 600;
 }

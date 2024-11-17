@@ -39,7 +39,7 @@ export const typeColors = {
   normal: '#deeafc',
   poison: '#e0b0ff',
   psychic: '#FF77B7',
-  rock: '#c2d1d9', /*c2d1d9*/
+  rock: '#c2d1d9',
   water: '#4CC9FE',
   steel: '#fafdff',
   flying: '#cddffb',
@@ -140,24 +140,23 @@ function lazyLoadImage(img) {
 }
 
 
-// // Función para cambiar Fondos según tipo de Pokemon
+// Función para cambiar Fondos de Modal según tipo de Pokemon
 export function changeModalBackground(typeName, modalContainerImg) {
   const modalBackgroundUrl = typeModalBackgrounds[typeName];
   if (modalBackgroundUrl) {
       modalContainerImg.style.backgroundImage = modalBackgroundUrl;
   } else {
-      modalContainerImg.style.backgroundImage = ''; // Default background
+      modalContainerImg.style.backgroundImage = '';
   }
 }
 
-
-// // Función para cambiar Fondos de Modal según tipo de Pokemon
+// Función para cambiar Fondos según tipo de Pokemon
 export function changeBackgroundColor(typeName, card) {
   const backgroundColor = typeColors[typeName];
   if (backgroundColor) {
       card.style.backgroundColor = backgroundColor;
   } else {
-      card.style.backgroundColor = '#fff'; // Default color
+      card.style.backgroundColor = '#000';
   }
 }
 
@@ -275,7 +274,7 @@ export function setupPagination(container, currentPage, totalPages, onPageChange
 
 
 // Función para abrir el modal con detalles del Pokémon
-export function openModal(name, imageUrl, types, weight, moves, height, base_experience) {
+export function openModal( name, imageUrl, types, weight, moves, height, base_experience, stat) {
   const modalName = document.getElementById('modalName');
   const modalImg = document.getElementById('modalImg');
   const modalType = document.getElementById('modalType');
@@ -287,10 +286,10 @@ export function openModal(name, imageUrl, types, weight, moves, height, base_exp
 
   modalName.innerText = name.toUpperCase();
   modalImg.src = imageUrl;
-  modalType.innerText = `Type: ${types.map(type => type.type.name).join(', ')}`;
-  modalWeight.innerText = `Weight: ${weight}`;
-  modalHeight.innerText = `Height: ${height}`;
-  modalExperience.innerText = `Experience: ${base_experience}`;
+  modalType.innerText = `Tipo: ${types.map(type => type.type.name).join(', ')}`;
+  modalWeight.innerText = `Peso: ${weight}`;
+  modalHeight.innerText = `Altura: ${height}`;
+  modalExperience.innerText = `Exp: ${base_experience}`;
 
   if (modalMoves) {
       modalMoves.innerText = `Moves: ${moves
