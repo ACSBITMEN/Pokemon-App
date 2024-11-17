@@ -14,8 +14,8 @@ const pokemonsPerPage = 40;
 let currentPage = 1;
 let totalPokemons = 0;
 let totalPages = 0;
-let pokemons = []; // Array of all Pokémon (name and URL)
-let filteredPokemons = []; // Array of filtered Pokémon
+let pokemons = []; // Array de todos los Pokémones (nonbre y URL)
+let filteredPokemons = []; // Array de filtrado de Pokémon
 let isFiltered = false; // Indicates if we are showing filtered results
 
 const searchInput = document.getElementById('searchInput');
@@ -40,17 +40,17 @@ const lightModeIcon = `
 
 // Event listener for dark/light mode toggle
 modeToggle.addEventListener('click', () => {
-  if (root.getAttribute('data-theme') === 'dark') {
-      root.setAttribute('data-theme', 'light');
-      modeToggle.innerHTML = darkModeIcon; // Cambia al icono de modo Dark
-      modeToggle.classList.remove('btn-dark');
-      modeToggle.classList.add('btn-light');
-  } else {
-      root.setAttribute('data-theme', 'dark');
-      modeToggle.innerHTML = lightModeIcon; // Cambia al icono de modo Light
-      modeToggle.classList.remove('btn-light');
-      modeToggle.classList.add('btn-dark');
-  }
+    if (root.getAttribute('data-theme') === 'dark') {
+        root.setAttribute('data-theme', 'light');
+        modeToggle.innerHTML = `Oscuro ` + darkModeIcon; // Cambia al icono de modo Dark
+        modeToggle.classList.remove('btn-dark');
+        modeToggle.classList.add('btn-light');
+    } else {
+        root.setAttribute('data-theme', 'dark');
+        modeToggle.innerHTML = `Claro` + lightModeIcon;
+        modeToggle.classList.remove('btn-light');
+        modeToggle.classList.add('btn-dark');
+    }
 });
 
 // Function to fetch and display the Pokémon list

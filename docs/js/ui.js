@@ -22,6 +22,7 @@ export const typeIconClasses = {
   flying: 'fa-dove',
 };
 
+
 // Color por tipo de Pokemon
 export const typeColors = {
   bug: '#5ccda7',
@@ -44,6 +45,7 @@ export const typeColors = {
   flying: '#cddffb',
 };
 
+
 // Fondos por tipo de Pokemon
 export const typeModalBackgrounds = {
   bug: 'url(img/BugModalBackground.jpg)',
@@ -65,6 +67,7 @@ export const typeModalBackgrounds = {
   steel: 'url(img/SteelModalBackground.jpg)',
   flying: 'url(img/FlyingModalBackground.jpg)',
 };
+
 
 // Funcion para crear una carta Pokémon
 export function createCard(name, types, imageUrl, id) {
@@ -121,6 +124,7 @@ export function createCard(name, types, imageUrl, id) {
   return card;
 }
 
+
 // Función para lazy loading de imágenes
 function lazyLoadImage(img) {
   const observer = new IntersectionObserver((entries, observer) => {
@@ -135,6 +139,7 @@ function lazyLoadImage(img) {
   observer.observe(img);
 }
 
+
 // // Función para cambiar Fondos según tipo de Pokemon
 export function changeModalBackground(typeName, modalContainerImg) {
   const modalBackgroundUrl = typeModalBackgrounds[typeName];
@@ -145,6 +150,7 @@ export function changeModalBackground(typeName, modalContainerImg) {
   }
 }
 
+
 // // Función para cambiar Fondos de Modal según tipo de Pokemon
 export function changeBackgroundColor(typeName, card) {
   const backgroundColor = typeColors[typeName];
@@ -154,6 +160,7 @@ export function changeBackgroundColor(typeName, card) {
       card.style.backgroundColor = '#fff'; // Default color
   }
 }
+
 
 // Function to display Pokémon in the UI
 export function displayPokemons(pokemons, container, openModalCallback) {
@@ -168,36 +175,104 @@ export function displayPokemons(pokemons, container, openModalCallback) {
   });
 }
 
+
 // Función para configurar controles de paginación
+// ui.js
+
+// Función para configurar controles de paginación usando componentes de Bootstrap
 export function setupPagination(container, currentPage, totalPages, onPageChange) {
-  container.innerHTML = '';
+  container.innerHTML = ''; // Limpiar el contenedor
 
-  const prevButton = document.createElement('button');
-  prevButton.textContent = 'Anterior';
-  prevButton.classList.add('btn');
-  prevButton.disabled = currentPage === 1;
-  prevButton.addEventListener('click', () => {
-      if (currentPage > 1) {
-          onPageChange(currentPage - 1);
-      }
+  // Crear el elemento ul de paginación
+  const paginationList = document.createElement('ul');
+  paginationList.classList.add('pagination');
+
+  // Crear botón "Anterior"
+  const prevItem = document.createElement('li');
+  prevItem.classList.add('page-item');
+  if (currentPage === 1) {
+    prevItem.classList.add('disabled');
+  }
+  const prevLink = document.createElement('a');
+  prevLink.classList.add('page-link');
+  prevLink.href = '#';
+  prevLink.textContent = 'Anterior';
+  prevLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
   });
-  container.appendChild(prevButton);
+  prevItem.appendChild(prevLink);
+  paginationList.appendChild(prevItem);
 
-  const pageIndicator = document.createElement('span');
-  pageIndicator.textContent = ` Página ${currentPage} de ${totalPages} `;
-  container.appendChild(pageIndicator);
+  // Calcular el rango de páginas a mostrar
+  let startPage;
+  let endPage;
 
-  const nextButton = document.createElement('button');
-  nextButton.textContent = 'Siguiente';
-  nextButton.classList.add('btn');
-  nextButton.disabled = currentPage === totalPages;
-  nextButton.addEventListener('click', () => {
-      if (currentPage < totalPages) {
-          onPageChange(currentPage + 1);
+  if (totalPages <= 5) {
+    // Si hay 5 páginas o menos, mostrar todas
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    // Más de 5 páginas, calcular rangos dinámicamente
+    if (currentPage <= 3) {
+      startPage = 1;
+      endPage = 5;
+    } else if (currentPage + 2 >= totalPages) {
+      startPage = totalPages - 4;
+      endPage = totalPages;
+    } else {
+      startPage = currentPage - 2;
+      endPage = currentPage + 2;
+    }
+  }
+
+  // Crear los elementos de número de página
+  for (let i = startPage; i <= endPage; i++) {
+    const pageItem = document.createElement('li');
+    pageItem.classList.add('page-item');
+    if (i === currentPage) {
+      pageItem.classList.add('active');
+    }
+    const pageLink = document.createElement('a');
+    pageLink.classList.add('page-link');
+    pageLink.href = '#';
+    pageLink.textContent = i;
+    pageLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (i !== currentPage) {
+        onPageChange(i);
       }
+    });
+    pageItem.appendChild(pageLink);
+    paginationList.appendChild(pageItem);
+  }
+
+  // Crear botón "Siguiente"
+  const nextItem = document.createElement('li');
+  nextItem.classList.add('page-item');
+  if (currentPage === totalPages) {
+    nextItem.classList.add('disabled');
+  }
+  const nextLink = document.createElement('a');
+  nextLink.classList.add('page-link');
+  nextLink.href = '#';
+  nextLink.textContent = 'Siguiente';
+  nextLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
   });
-  container.appendChild(nextButton);
+  nextItem.appendChild(nextLink);
+  paginationList.appendChild(nextItem);
+
+  // Agregar la lista de paginación al contenedor
+  container.appendChild(paginationList);
 }
+
+
 
 // Función para abrir el modal con detalles del Pokémon
 export function openModal(name, imageUrl, types, weight, moves, height, base_experience) {
