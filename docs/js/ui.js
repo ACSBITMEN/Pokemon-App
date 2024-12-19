@@ -165,10 +165,10 @@ export function changeBackgroundColor(typeName, card) {
 export function displayPokemons(pokemons, container, openModalCallback) {
   container.innerHTML = '';
   pokemons.forEach(pokemon => {
-      const { name, types, weight, height, moves, sprites, id, base_experience } = pokemon;
+      const { name, types, weight, height, moves, sprites, id, base_experience, stats } = pokemon;
       const card = createCard(name, types, sprites.front_default, id);
       card.addEventListener('click', () =>
-          openModalCallback(name, sprites.front_default, types, weight, moves, height, base_experience)
+          openModalCallback(name, sprites.front_default, types, weight, moves, height, base_experience, stats, id)
       );
       container.appendChild(card);
   });
@@ -274,7 +274,7 @@ export function setupPagination(container, currentPage, totalPages, onPageChange
 
 
 // Función para abrir el modal con detalles del Pokémon
-export function openModal( name, imageUrl, types, weight, moves, height, base_experience, stat) {
+export function openModal(name, imageUrl, types, weight, moves, height, base_experience, stats, id) {
   const modalName = document.getElementById('modalName');
   const modalImg = document.getElementById('modalImg');
   const modalType = document.getElementById('modalType');
@@ -283,27 +283,51 @@ export function openModal( name, imageUrl, types, weight, moves, height, base_ex
   const modalMoves = document.getElementById('modalMoves');
   const modalExperience = document.getElementById('modalExperience');
   const modalContainerImg = document.getElementById('modalContainerImg');
+  const modalStats = document.getElementById('modalStats'); // Contenedor de estadísticas
+  const modalNumber = document.getElementById('numberPokemonModal'); // Contenedor para ID
 
-  modalName.innerText = name.toUpperCase();
-  modalImg.src = imageUrl;
-  modalType.innerText = `Tipo: ${types.map(type => type.type.name).join(', ')}`;
-  modalWeight.innerText = `Peso: ${weight}`;
-  modalHeight.innerText = `Altura: ${height}`;
-  modalExperience.innerText = `Exp: ${base_experience}`;
+  // Configuración básica
+  modalName.innerText = name?.toUpperCase() || 'N/A';
+  modalImg.src = imageUrl || '';
+  modalType.innerText = `Tipo: ${types?.map(type => type.type.name).join(', ') || 'Desconocido'}`;
+  modalWeight.innerText = `Peso: ${(weight / 10).toFixed(1)} kg` || 'N/A'; // Peso en kg
+  modalHeight.innerText = `Altura: ${(height / 10).toFixed(1)} m` || 'N/A'; // Altura en m
+  modalExperience.innerText = `Exp: ${base_experience || 'N/A'}`;
+  modalNumber.innerText = `#${id || 'N/A'}`; // Mostrar ID
 
+  // Movimientos
   if (modalMoves) {
-      modalMoves.innerText = `Moves: ${moves
-          .slice(0, 5)
-          .map(move => move.move.name)
-          .join(', ')}`; // Show the first 5 moves
+    modalMoves.innerText = `Movimientos: ${moves?.slice(0, 5).map(move => move.move.name).join(', ') || 'No disponibles'}`;
   }
 
-  if (types.length > 0) {
-      const modalTypeName = types[0].type.name.toLowerCase();
-      changeModalBackground(modalTypeName, modalContainerImg);
+  // Estadísticas
+  if (stats && modalStats) {
+    stats.forEach(stat => {
+      const statName = stat.stat.name.toLowerCase(); // Por ejemplo, 'hp', 'attack', etc.
+      const statValue = stat.base_stat;
+
+      // Selecciona el elemento correspondiente en el HTML
+      const statElement = modalStats.querySelector(`.stat-${statName}`);
+      if (statElement) {
+        // Actualiza el valor de la estadística
+        const progressBar = statElement.querySelector('.progress-bar');
+        progressBar.style.width = `${Math.min(statValue, 100)}%`;
+        progressBar.setAttribute('aria-valuenow', statValue);
+        progressBar.innerText = statValue;
+      }
+    });
+  }
+
+  // Cambiar fondo del modal según tipo
+  if (types?.length > 0) {
+    const modalTypeName = types[0].type.name.toLowerCase();
+    changeModalBackground(modalTypeName, modalContainerImg);
   } else {
-      modalContainerImg.style.backgroundImage = ''; // Default background
+    modalContainerImg.style.backgroundImage = ''; // Fondo predeterminado
   }
 }
+
+
+
 
 

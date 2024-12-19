@@ -184,6 +184,8 @@ main {
   border: 1px solid rgb(119, 119, 119);
 }
 
+
+
 #containerTopCard {
   width: 100%;
   padding: 2px 2px 0 0;
@@ -257,11 +259,15 @@ main {
 #modalContainerImg {
   display: flex;
   justify-content: center;
-  background-image: url(img/ModalBackgroundImg.jpg);
+  background-image: url(img/NormalModalBackground.jpg);
   background-size: cover;
   margin: 0 .5rem 0 .5rem;
   border: 2px solid rgba(0, 0, 0, 0.589);
   position: relative;
+}
+
+#modalCard {
+  background-color: #b4d4f1;
 }
 
 #numberPokemonModal {
@@ -280,6 +286,7 @@ main {
 #modalImg {
   width: 200px; /* Ancho de la imagen */
   height: auto; /* Altura de la imagen ajustada automáticamente */
+  margin-left: 1.5rem;
   box-sizing: content-box;
 }
 
@@ -293,6 +300,7 @@ main {
   -webkit-text-stroke: 1px #000000; /* Borde de 1 píxel de color negro */
   color: #ffb005; /* Color del texto */
   font-size: 2rem;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -304,9 +312,11 @@ main {
 
 .card .list-group li {
   background-color: #375fcc77;
+  color: var(--text-color);
   margin: 0;
   border-color: rgba(0, 0, 0, 0.253);
   font-weight: bold;
+  font-size: 1em;
 }
 
 .card-body .datesPokemon {
@@ -318,4 +328,28 @@ main {
   text-align: center;
   flex-wrap: nowrap;
   font-weight: 600;
+}
+
+#modalStats {
+  color: var(--text-color);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3px 0 5px;
+}
+
+.stat {
+  border: 1px solid gainsboro;
+  width: 142px;
+  margin: 0 0 5px 0;
+  padding: 0 5px;
+}
+
+.stat:nth-child(odd) {
+  margin-right: 8px;
+}
+
+.stat p {
+  margin: 0;
+  text-align: center;
+  font-size: .9em;
 }
