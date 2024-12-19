@@ -174,10 +174,6 @@ export function displayPokemons(pokemons, container, openModalCallback) {
   });
 }
 
-
-// Función para configurar controles de paginación
-// ui.js
-
 // Función para configurar controles de paginación usando componentes de Bootstrap
 export function setupPagination(container, currentPage, totalPages, onPageChange) {
   container.innerHTML = ''; // Limpiar el contenedor
@@ -271,8 +267,6 @@ export function setupPagination(container, currentPage, totalPages, onPageChange
   container.appendChild(paginationList);
 }
 
-
-
 // Función para abrir el modal con detalles del Pokémon
 export function openModal(name, imageUrl, types, weight, moves, height, base_experience, stats, id) {
   const modalName = document.getElementById('modalName');
@@ -295,11 +289,6 @@ export function openModal(name, imageUrl, types, weight, moves, height, base_exp
   modalExperience.innerText = `Exp: ${base_experience || 'N/A'}`;
   modalNumber.innerText = `#${id || 'N/A'}`; // Mostrar ID
 
-  // Movimientos
-  if (modalMoves) {
-    modalMoves.innerText = `Movimientos: ${moves?.slice(0, 5).map(move => move.move.name).join(', ') || 'No disponibles'}`;
-  }
-
   // Estadísticas
   if (stats && modalStats) {
     stats.forEach(stat => {
@@ -317,6 +306,14 @@ export function openModal(name, imageUrl, types, weight, moves, height, base_exp
       }
     });
   }
+
+    // Movimientos
+    if (modalMoves) {
+      modalMoves.innerText = `Movimientos: ${moves?.slice(0, 5).map(move => move.move.name).join(', ') || 'No disponibles'}`;
+    }
+
+  // Cambiar icon "Tipo:"
+
 
   // Cambiar fondo del modal según tipo
   if (types?.length > 0) {

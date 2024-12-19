@@ -3,6 +3,7 @@
   --nav-background-color: #c20803;
   --background-color: #ebebeb; /*3564AE*/
   --text-color: #000;
+  --text-color-negative: #d4d4d4;
   --text-color-pokemon: #FFCB05;
   --border-color-pokemon: #003A70;
   --modeToggle-bg-color: #333;
@@ -10,7 +11,7 @@
   --borderH1-color-pokemon: #003A70;
   --pokemon-card-background: #fff;
   --button-background: #C0C0C0;
-  --modal-background: #fafdff;
+  --modal-background: #d7dce0;
   --pagination-border-color: #6d6d6d;
   --background-color-hover: #cfcfcf;
 }
@@ -19,12 +20,13 @@
   /* Variables para el modo oscuro */
   --nav-background-color: #1e1e1e;
   --background-color: #353535;
+  --text-color: #d4d4d4;
+  --text-color-negative: #000;
   --text-color-pokemon: #FFCB05;
   --border-color-pokemon: #c20803;
   --modeToggle-bg-color: #ebebeb;
   --textH1-color-pokemon: #1e1e1e;
   --borderH1-color-pokemon: #FFCB05;
-  --text-color: #d4d4d4;
   --pokemon-card-background: #444;
   --button-background: #666;
   --modal-background: #2c2c2c;
@@ -251,6 +253,10 @@ main {
   width: 320px; /* ancho de la tarjeta modal */
 }
 
+#modalCard {
+  background-color: var(--modal-background);
+}
+
 .topCard {
   display: flex;
   flex-direction: row-reverse;
@@ -259,19 +265,37 @@ main {
 #modalContainerImg {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-image: url(img/NormalModalBackground.jpg);
   background-size: cover;
   margin: 0 .5rem 0 .5rem;
-  border: 2px solid rgba(0, 0, 0, 0.589);
   position: relative;
+  overflow: hidden;
+  height: 230px;
+  border-radius: 4px 4px 0 0;
 }
 
-#modalCard {
-  background-color: #b4d4f1;
+#modalImg {
+  width: 200px;
+  height: 200px;
+  margin-left: 1.5rem;
+  box-sizing: content-box;
+}
+
+#modalTypes {
+  background-color: #0000003f;
+  color: #fffffff3;
+  padding: .1rem .7rem .1rem;
+  position: absolute;
+  top: 0rem;
+  left: 0rem;
+  font-size: 1em;
+  font-weight: 700;
+  text-shadow: -1px -1px 0 #00000088, 1px -1px 0 #00000088, -1px 1px 0 #00000088, 1px 1px 0 #00000088;
+  border-radius: 0 0 5px 0;
 }
 
 #numberPokemonModal {
-  background-color: #ffffff6b;
   color: #fff;
   padding: .1rem .7rem 0;
   position: absolute;
@@ -280,53 +304,48 @@ main {
   text-shadow: -1px -1px 0 #00000088, 1px -1px 0 #00000088, -1px 1px 0 #00000088, 1px 1px 0 #00000088;
   font-size: 1.5em;
   font-weight: 700;
-  border-radius: 30px;
 }
 
-#modalImg {
-  width: 200px; /* Ancho de la imagen */
-  height: auto; /* Altura de la imagen ajustada automáticamente */
-  margin-left: 1.5rem;
-  box-sizing: content-box;
+#modalName {
+  background: linear-gradient(to center, #00000000 0%, #00000099 75%, #000000a1 100%);
+  color: #ffb005; /* Color del texto */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 3px;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 
+  0 0 3px rgba(0, 0, 0, 0.2),  /* Sombra suave y tenue */
+  0 0 6px rgba(0, 0, 0, 0.4),  /* Sombra ligeramente más intensa */
+  0 0 12px rgba(0, 0, 0, 0.6), /* Sombra oscura intermedia */
+  0 0 24px rgba(0, 0, 0, 0.8), /* Sombra muy oscura */
+  0 0 32px rgba(0, 0, 0, 1),   /* Sombra negra intensa */
+  0 0 64px rgba(0, 0, 0, 1);   /* Sombra profunda y definida */
+  /* -webkit-text-stroke: 1px #000000; Borde de 1 píxel de color negro */
 }
 
 .card-body {
   padding: 0 .5rem .3rem .5rem;
 }
 
-.card-body h4 {
-  text-align: center;
-  background-color: #00000042;
-  -webkit-text-stroke: 1px #000000; /* Borde de 1 píxel de color negro */
-  color: #ffb005; /* Color del texto */
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
 .card {
   --bs-card-border-color: #C0C0C0;
-  background-color: var(--modal-background);
   border-color: #0000006e;
 }
 
-.card .list-group li {
-  background-color: #375fcc77;
-  color: var(--text-color);
-  margin: 0;
-  border-color: rgba(0, 0, 0, 0.253);
-  font-weight: bold;
-  font-size: 1em;
-}
-
 .card-body .datesPokemon {
-  background-color: rgb(156, 156, 156);
+  background-color: #9c9c9c;
+  color: #383838;
   display: flex;
   margin: 0;
-  padding: 0;
+  padding: 0 .5rem;
   justify-content: space-around;
   text-align: center;
   flex-wrap: nowrap;
+  font-size: .9em;
   font-weight: 600;
 }
 
@@ -334,22 +353,38 @@ main {
   color: var(--text-color);
   display: flex;
   flex-wrap: wrap;
-  padding: 3px 0 5px;
+  padding: 3px 0 2px;
+  margin-top: 3px;
+  justify-content: center;
 }
 
 .stat {
-  border: 1px solid gainsboro;
   width: 142px;
-  margin: 0 0 5px 0;
-  padding: 0 5px;
 }
 
-.stat:nth-child(odd) {
-  margin-right: 8px;
+.progress {
+  margin: 0 5px;
+  border: 1px solid #181818;
+}
+
+.progress-bar {
+  background-color: var(--borderH1-color-pokemon);
+  color: var(--text-color-negative);
+  font-weight: 600;
 }
 
 .stat p {
   margin: 0;
   text-align: center;
   font-size: .9em;
+}
+
+.card .list-group li {
+  background-color: #9c9c9c77;
+  color: var(--text-color);
+  margin: 0;
+  border-color: rgba(0, 0, 0, 0.253);
+  font-weight: bold;
+  font-size: .9em;
+  padding: 5px 5px 5px 10px;
 }
