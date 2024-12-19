@@ -257,9 +257,20 @@ main {
   background-color: var(--modal-background);
 }
 
+#modalCard, #modalImg {
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
 .card {
   --bs-card-border-color: #C0C0C0;
   border-color: #0000006e;
+}
+
+.modal-content {
+  background-color: #00000000;
+  border: none;
 }
 
 .topCard {
@@ -278,7 +289,7 @@ main {
   align-items: center;
   background-image: url(img/NormalModalBackground.jpg);
   background-size: cover;
-  margin: 0 .5rem 0 .5rem;
+  margin: .4rem .5rem 0 .5rem;
   position: relative;
   overflow: hidden;
   height: 230px;

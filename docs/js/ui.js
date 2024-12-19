@@ -324,7 +324,36 @@ export function openModal(name, imageUrl, types, weight, moves, height, base_exp
   }
 }
 
+// Efecto de 3D para .card
+document.addEventListener('DOMContentLoaded', function () {
+  const modalCard = document.querySelector('#modalCard'); // La tarjeta
+  const modalImg = document.querySelector('#modalImg'); // La imagen dentro de la tarjeta
 
+  // Eventos para la tarjeta
+  modalCard.addEventListener('mousemove', (event) => {
+      handleMouseMove(event, modalCard, 40); // Efecto en la tarjeta
+      handleMouseMove(event, modalImg, 5); // Efecto en la imagen
+  });
 
+  modalCard.addEventListener('mouseleave', () => {
+      handleMouseLeave(modalCard); // Restablece el efecto en la tarjeta
+      handleMouseLeave(modalImg); // Restablece el efecto en la imagen
+  });
 
+  // Función para manejar el movimiento del mouse
+  function handleMouseMove(event, element, angleFactor) {
+      const boundingRect = modalCard.getBoundingClientRect(); // Usa las dimensiones de la tarjeta
+      const mouseX = event.clientX - boundingRect.left;
+      const mouseY = event.clientY - boundingRect.top;
 
+      const rotateX = angleFactor * ((mouseY - boundingRect.height / 2) / boundingRect.height);
+      const rotateY = -angleFactor * ((mouseX - boundingRect.width / 2) / boundingRect.width);
+
+      element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }
+
+  // Función para restablecer la posición al salir
+  function handleMouseLeave(element) {
+      element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+  }
+});
