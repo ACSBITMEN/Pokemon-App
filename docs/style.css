@@ -266,6 +266,10 @@ main {
 .card {
   --bs-card-border-color: #C0C0C0;
   border-color: #0000006e;
+  user-select: none; /* Previene la selección */
+  -webkit-user-select: none; /* Compatibilidad con navegadores WebKit */
+  -moz-user-select: none; /* Compatibilidad con Firefox */
+  -ms-user-select: none; /* Compatibilidad con Internet Explorer */
 }
 
 .modal-content {
@@ -391,6 +395,7 @@ main {
   text-align: center;
   font-size: .9em;
   font-weight: 600;
+  cursor: default;
 }
 
 .card .list-group li {
