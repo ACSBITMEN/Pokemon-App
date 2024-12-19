@@ -257,10 +257,20 @@ main {
   background-color: var(--modal-background);
 }
 
+.card {
+  --bs-card-border-color: #C0C0C0;
+  border-color: #0000006e;
+}
+
 .topCard {
   display: flex;
   flex-direction: row-reverse;
 }
+
+.card-body {
+  padding: 0 .5rem .3rem .5rem;
+}
+
 
 #modalContainerImg {
   display: flex;
@@ -327,15 +337,6 @@ main {
   /* -webkit-text-stroke: 1px #000000; Borde de 1 píxel de color negro */
 }
 
-.card-body {
-  padding: 0 .5rem .3rem .5rem;
-}
-
-.card {
-  --bs-card-border-color: #C0C0C0;
-  border-color: #0000006e;
-}
-
 .card-body .datesPokemon {
   background-color: #9c9c9c;
   color: #383838;
@@ -347,6 +348,7 @@ main {
   flex-wrap: nowrap;
   font-size: .9em;
   font-weight: 600;
+  border-radius: 0 0 3px 3px;
 }
 
 #modalStats {
@@ -377,6 +379,7 @@ main {
   margin: 0;
   text-align: center;
   font-size: .9em;
+  font-weight: 600;
 }
 
 .card .list-group li {
@@ -384,7 +387,6 @@ main {
   color: var(--text-color);
   margin: 0;
   border-color: rgba(0, 0, 0, 0.253);
-  font-weight: bold;
   font-size: .9em;
   padding: 5px 5px 5px 10px;
 }

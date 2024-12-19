@@ -38,19 +38,41 @@ const lightModeIcon = `
 </svg>
 `;
 
-// Event listener for dark/light mode toggle
-modeToggle.addEventListener('click', () => {
-    if (root.getAttribute('data-theme') === 'dark') {
-        root.setAttribute('data-theme', 'light');
-        modeToggle.innerHTML = `Oscuro ` + darkModeIcon; // Cambia al icono de modo Dark
-        modeToggle.classList.remove('btn-dark');
-        modeToggle.classList.add('btn-light');
-    } else {
+// Función para aplicar el tema según la preferencia
+function applyTheme(theme) {
+    if (theme === 'dark') {
         root.setAttribute('data-theme', 'dark');
-        modeToggle.innerHTML = `Claro` + lightModeIcon;
+        modeToggle.innerHTML = `Claro ` + lightModeIcon;
         modeToggle.classList.remove('btn-light');
         modeToggle.classList.add('btn-dark');
+    } else {
+        root.setAttribute('data-theme', 'light');
+        modeToggle.innerHTML = `Oscuro ` + darkModeIcon;
+        modeToggle.classList.remove('btn-dark');
+        modeToggle.classList.add('btn-light');
     }
+    localStorage.setItem('theme', theme); // Guarda la preferencia en localStorage
+}
+
+// Detecta el tema preferido del usuario
+function detectPreferredTheme() {
+    const savedTheme = localStorage.getItem('theme'); // Revisa si hay un tema guardado
+    if (savedTheme) {
+        return savedTheme; // Usa el tema guardado
+    }
+    // Detecta el tema del sistema si no hay guardado
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return prefersDark ? 'dark' : 'light';
+}
+
+// Aplica el tema detectado al cargar la página
+applyTheme(detectPreferredTheme());
+
+// Event listener para el botón de toggle
+modeToggle.addEventListener('click', () => {
+    const currentTheme = root.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
 });
 
 // Function to fetch and display the Pokémon list
